@@ -21,9 +21,12 @@ jobs:
               with:
                 role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
                 aws-region: ${{ vars.AWS_REGION }}
+                audience: sts.amazonaws.com
+  
 
             - name: Login to Amazon ECR
               uses: aws-actions/amazon-ecr-login@v2
+              id: login-ecr
 
             - name: Build Docker Image
               run: 
@@ -31,8 +34,8 @@ jobs:
 
             - name: Tag Docker Image
               run: 
-                docker tag ${{ vars.ECR.REPOSITORY }}
-                ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest
+                docker tag ${{ vars.ECR.REPOSITORY }}:latest \
+                ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest 
 
             - name: Push Docker Image
               run:
