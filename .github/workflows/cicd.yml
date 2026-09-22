@@ -34,7 +34,7 @@ jobs:
 
             - name: Tag Docker Image
               run: 
-                docker tag ${{ vars.ECR.REPOSITORY }}:latest \
+                docker tag ${{ vars.ECR_REPOSITORY }}:latest \
                 ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest 
 
             - name: Push Docker Image
