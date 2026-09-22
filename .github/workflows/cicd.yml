@@ -41,7 +41,7 @@ jobs:
                 docker push ${{ steps.login-ecr.outputs.registry }}/${{ vars.ECR_REPOSITORY }}:latest
 
 
-     deploy:
+    deploy:
         needs: build
         runs-on: ubuntu-latest
         steps:
